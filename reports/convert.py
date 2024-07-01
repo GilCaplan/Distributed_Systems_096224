@@ -5,7 +5,7 @@ from nbconvert import HTMLExporter
 #C:\Users\USER\AppData\Local\Programs\MiKTeX
 def tsv_to_html(tsv_path, html_path):
     with open(tsv_path, 'r') as tsv_file:
-        lines = tsv_file.readlines()
+        lines = tsv_file.readlines()[:100:10]
 
     html_content = '<html>\n<head>\n<title>TSV to HTML</title>\n</head>\n<body>\n'
     html_content += '<table border="1">\n'
@@ -52,11 +52,11 @@ def combine_html_files(tsv_html_path, notebook_html_path, combined_html_path):
 
 
 if __name__ == "__main__":
-    tsv_path = '/reports/give_in/output_pokemons.tsv'
-    notebook_path = '/reports/give_in/DB_Report_01.ipynb'
-    tsv_html_path = 'C:\\Users\\USER\\PycharmProjects\\DataBase_Spring\\reports\\output_pokemons.html'
+    tsv_path = 'C:\\Users\\USER\\PycharmProjects\\DataBase_Spring\\reports\\output_pokemons.tsv'
+    notebook_path = 'C:\\Users\\USER\\PycharmProjects\\DataBase_Spring\\reports\\give_in\\DB_Report_01.ipynb'
+    tsv_html_path = 'C:\\Users\\USER\\PycharmProjects\\DataBase_Spring\\reports\\give_in\\output_pokemons.tsv'
     notebook_html_path = 'C:\\Users\\USER\\PycharmProjects\\DataBase_Spring\\reports\\DB_Report_01.html'
-    combined_html_path = '/reports/give_in/combined_output.html'
+    combined_html_path = 'C:\\Users\\USER\\PycharmProjects\\DataBase_Spring\\reports\\give_in\\combined_output.html'
 
     if os.path.exists(tsv_path):
         tsv_to_html(tsv_path, tsv_html_path)

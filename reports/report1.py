@@ -6,7 +6,7 @@ keys = set()  # TSV unique key set for headers (column names)
 
 def flatten_json(nested_json, parent_key='', sep='.'):
     """
-    Flatten the Pokémon's that are given as a json object
+    Flattening the Pokémon's (from Json set)
     """
     items = []
     for k, v in nested_json.items():
@@ -32,7 +32,7 @@ def flatten_json(nested_json, parent_key='', sep='.'):
     yield dict(items)
 
 
-# open json file to get data and then flatten it
+# open json file to get data and then flatten the Pokemon's
 with open('pokedex.json') as json_file:
     data = json.load(json_file)
     flattened_data = sorted([next(flatten_json(pokemon)) for pokemon in data], key=lambda x: x.get("name", ""))
@@ -40,6 +40,8 @@ with open('pokedex.json') as json_file:
 
 # Filter out empty columns from each dictionary
 flattened_data_filtered = [{key: value for key, value in pokemon.items() if key in keys} for pokemon in flattened_data]
+
+keys = {key for key in keys if any(pokemon.get(key) for pokemon in flattened_data)}
 
 sorted_columns = sorted(keys, key=lambda x: (x != "name", x))
 
